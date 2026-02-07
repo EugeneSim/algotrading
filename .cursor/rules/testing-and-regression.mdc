@@ -1,0 +1,24 @@
+---
+description: All changes must be tested and regression tested
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Testing and Regression Requirement
+
+All changes to code in this repo must be **tested** and **regression tested**.
+
+## Requirements
+
+- **New or modified behavior**: Add or extend tests that cover the new/modified logic (unit or integration as appropriate).
+- **Regression**: Run the full test suite (and any new tests) after changes; fix or document any failing tests. No regressions without explicit approval and tracking.
+- **Backtesting path**: For changes touching `backtest.py`, `output-backtester*.py`, `evaluate.py`, or strategy code used in backtests:
+  - Include at least one automated test that runs the backtest pipeline (or a minimal variant) and asserts on key outputs (e.g. portfolio columns exist, no crash, optional sanity checks on final value or return).
+- **Location**: Prefer a `tests/` directory at repo root; name tests `test_<module>.py` or `test_<feature>.py`.
+
+## Test Execution
+
+- Run tests before considering a change complete (e.g. `pytest tests/` or `python -m pytest`).
+- If the project has no tests yet, the first PR that touches backtest or evaluation code should introduce a minimal test layout and at least one backtest smoke test.
+
+When proposing changes, state what tests you add or run and confirm regression status.

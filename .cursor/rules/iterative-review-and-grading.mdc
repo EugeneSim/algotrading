@@ -1,0 +1,71 @@
+---
+description: Iterative repo review and grading (up to 20 iterations, min score 95 for real-world viability)
+alwaysApply: true
+---
+
+# Iterative Review and Grading Hook
+
+When performing a **full repository review**, **release readiness**, or **backtesting real-world implementation** check, follow this workflow.
+
+## Iteration Cap and Success Criteria
+
+- **Maximum iterations**: 20.
+- **Grading scale**: 0–100. Score is based on **viability for real-world testing** (correctness, robustness, reproducibility, data handling, execution safety).
+- **Backtesting**: Minimum score **95** for code paths used in backtesting and real-world implementation.
+- **Loop**: Repeat the steps below until **score ≥ 95** (for backtesting/real-world) **or** iteration count reaches 20. Track iteration number and score in your response or in a short checklist.
+
+## Per-Iteration Steps (a–g)
+
+For each iteration:
+
+**a. Review full project repository**  
+- Traverse `src/`, `database/` (structure/samples), `docs/`, config, and entrypoints.  
+- Identify all modules that affect backtesting, paper trading, and production-like runs.
+
+**b. Understand what has been done**  
+- Summarize current behavior, data flow, and assumptions (e.g. HKEX data, IB paper trading, LSTM signals).  
+- Note gaps between “tutorial/demo” vs “production-ready” usage.
+
+**c. Suggest improvements and changes**  
+- List concrete, prioritized improvements (bugs, edge cases, config, logging, error handling).  
+- Focus on items that raise real-world viability (e.g. survivorship bias, look-ahead, slippage, position sizing).
+
+**d. All changes as PR, explained and documented**  
+- Every change set must be described as a **Pull Request**: clear title, description, and list of files.  
+- Document *why* each change was made and how it affects behavior or score.  
+- Update README, docstrings, or `docs/` where relevant.
+
+**e. All changes must be tested and regression tested**  
+- Add or extend tests for new and modified code.  
+- Run existing tests and any new tests; ensure no regressions.  
+- For backtesting: include at least one automated test that runs the backtest path and checks key outputs (e.g. final portfolio value, no crashes).
+
+**f. Penetration and vulnerability awareness**  
+- Consider: unsafe inputs (paths, tickers, CSV), dependency vulnerabilities, secrets in repo, injection risks in any scripts that run external data or commands.  
+- Flag and fix high-impact issues; document lower-risk ones.
+
+**g. Deprecated functions and upgrades**  
+- Replace deprecated APIs (e.g. pandas, numpy, matplotlib, Python built-ins) with current stable alternatives.  
+- Prefer latest stable versions of libraries; document version assumptions (e.g. in `requirements.txt` or README).
+
+## Grading Checklist (Real-World Viability, 0–100)
+
+Use this to assign a score each iteration:
+
+- **Correctness**: Backtest logic, no look-ahead bias, consistent indexing (e.g. 10 pts).
+- **Robustness**: Error handling, missing data, edge cases (e.g. 15 pts).
+- **Reproducibility**: Fixed seeds, documented data and versions (e.g. 15 pts).
+- **Safety**: No hardcoded secrets, safe file/path handling (e.g. 15 pts).
+- **Testing**: Automated tests and regression coverage for critical paths (e.g. 20 pts).
+- **Documentation and PR discipline**: Clear PRs and docs (e.g. 10 pts).
+- **Dependencies and deprecations**: Up-to-date, non-deprecated APIs (e.g. 15 pts).
+
+Adjust point bands to total 100; ensure backtesting and real-world code paths are weighted so that reaching 95 requires them to be in good shape.
+
+## When This Rule Applies
+
+- User asks for “full review”, “release readiness”, “production readiness”, or “grade the repo”.  
+- User asks to “reiterate until score 95” or “run the review loop”.  
+- Working on backtesting or paper-trading code and user wants quality gates.
+
+Keep each iteration’s output concise: score, iteration number, and a short list of done/planned items, plus the PR-style description for any changes made.

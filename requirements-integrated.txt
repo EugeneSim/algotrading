@@ -1,0 +1,11 @@
+# Optional: integrated strategy (LSTM, sentiment, IB)
+# Install with: pip install -r requirements-integrated.txt
+# Also install base deps first: pip install -r requirements.txt
+
+-r requirements.txt
+
+torch>=1.9
+textblob>=0.15
+vaderSentiment>=3.3
+requests>=2.26
+scikit-learn>=0.24

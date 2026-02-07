@@ -1,0 +1,25 @@
+---
+description: Penetration/vulnerability awareness and deprecated API upgrades to latest stable
+alwaysApply: true
+---
+
+# Security and Deprecation Standards
+
+## Security and Vulnerability Awareness
+
+- **Inputs**: Validate and sanitize file paths, ticker symbols, and any user or CSV-sourced input; avoid path traversal and injection (e.g. in scripts that run external data or shell commands).
+- **Secrets**: No API keys, passwords, or tokens in repo; use env vars or config that is gitignored; document required env in README.
+- **Dependencies**: Periodically check for known vulnerabilities (e.g. `pip audit`, safety, or Dependabot); address high/critical issues.
+- **Data handling**: Avoid `eval()`/`exec()` on untrusted data; use safe CSV/JSON parsing and type checks.
+
+When reviewing or changing code, flag and fix high-impact security issues; document lower-risk findings.
+
+## Deprecated Functions and Upgrades
+
+- **Python**: Prefer current stable Python (e.g. 3.10+); avoid deprecated stdlib APIs.
+- **Pandas**: Replace deprecated methods (e.g. `.ix`, old `rolling`/`apply` signatures, deprecated `pd.datetime`) with current stable equivalents (`.loc`/`.iloc`, current `rolling`/`apply`, `pd.Timestamp`/`datetime`).
+- **NumPy**: Replace deprecated aliases and functions with recommended ones (see NumPy deprecation warnings).
+- **Matplotlib**: Prefer current plotting APIs; avoid deprecated pyplot or backend usage where possible.
+- **Other libs**: Check for deprecation warnings when running tests or scripts; upgrade to latest stable versions and update `requirements.txt` (or equivalent) with version pins where appropriate.
+
+Document any version requirements or breaking changes in README or docs.

@@ -1,0 +1,14 @@
+# Core backtesting and evaluation (required for backtest path)
+numpy>=1.21,<3
+pandas>=1.3,<3
+matplotlib>=3.4,<4
+
+# Testing
+pytest>=7.0
+
+# Optional: integrated strategy (LSTM, sentiment, IB)
+# Uncomment if using integrated-strategy or paper-trading
+# torch>=1.9
+# textblob>=0.15
+# vaderSentiment>=3.3
+# requests>=2.26
