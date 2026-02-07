@@ -30,11 +30,11 @@ This change set improves correctness, robustness, safety, and testability of the
 
 | File | Change |
 |------|--------|
-| `code/backtest.py` | Docstring; align `signals` and `df` on common index to avoid look-ahead and NaNs; raise if no common index; use consistent quoting. |
-| `code/evaluate.py` | `StandardDeviation`: return 0 when `len(returns) < 2` (avoid div-by-zero). `CAGR`: handle empty/short portfolio and non-positive start value; use `.iloc` for clarity. |
-| `code/integrated-strategy/output-backtester.py` | Write results with `with open(..., encoding="utf-8")` instead of raw `open`/`close`. |
-| `code/integrated-strategy/output-backtester_wrapper.py` | Add `_safe_symbol()` to restrict symbol to alphanumeric (path traversal); use `with open(...)` for result file. |
-| `code/integrated-strategy/baseline_wrapper.py` | Write results with `with open(..., encoding="utf-8")`. |
+| `src/backtest.py` | Docstring; align `signals` and `df` on common index to avoid look-ahead and NaNs; raise if no common index; use consistent quoting. |
+| `src/evaluate.py` | `StandardDeviation`: return 0 when `len(returns) < 2` (avoid div-by-zero). `CAGR`: handle empty/short portfolio and non-positive start value; use `.iloc` for clarity. |
+| `src/integrated-strategy/output-backtester.py` | Write results with `with open(..., encoding="utf-8")` instead of raw `open`/`close`. |
+| `src/integrated-strategy/output-backtester_wrapper.py` | Add `_safe_symbol()` to restrict symbol to alphanumeric (path traversal); use `with open(...)` for result file. |
+| `src/integrated-strategy/baseline_wrapper.py` | Write results with `with open(..., encoding="utf-8")`. |
 | `README.md` | Add **Requirements** and **Testing** sections (install, run tests, note on `-p no:debugging`). |
 
 ---
@@ -53,12 +53,12 @@ This change set improves correctness, robustness, safety, and testability of the
 
 1. From repo root: `pip install -r requirements.txt`
 2. Run tests: `python -m pytest tests/ -v -p no:debugging`
-3. Expect: all 10 tests pass (4 backtest, 6 evaluate).
+3. Expect: all 14 tests pass (5 backtest, 6 evaluate, plus MACD and integration tests).
 
 ---
 
-## Regression / follow-ups
+## Regression / follow-ups (completed)
 
 - Existing scripts that call `Backtest()` or evaluation functions remain valid; alignment is internal and backward compatible when indices already match.
-- Consider renaming the top-level `code/` directory to avoid shadowing the stdlib `code` module (e.g. `src/` or `at_code/`) in a future PR.
-- Optional: add `pip audit` or Dependabot for dependency vulnerability checks.
+- **Done:** Top-level `code/` was renamed to `src/` (see `docs/MIGRATION_CODE_TO_SRC.md`).
+- **Done:** `pip audit` added in `.github/workflows/test.yml` (audit job).

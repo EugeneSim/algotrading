@@ -28,11 +28,13 @@ This document records the **real-world backtesting viability** grade and iterati
 | Robustness | 14 | Backtest/evaluate hardened; output-backtester_wrapper has try/except and clear errors for missing CSV. |
 | Reproducibility | 14 | requirements.txt; LSTM seeds and NumPy seed note in integrated-strategy README. |
 | Safety | 14 | Safe symbol in output-backtester_wrapper; with open; README note on secrets. |
-| Testing | 18 | 10 automated tests (backtest + evaluate), including edge-case tests. |
+| Testing | 18 | 14 automated tests (backtest, evaluate, MACD, integration), including edge-case tests. |
 | Documentation and PR | 10 | README Requirements/Testing/Security; PR doc; pytest.ini; integrated-strategy reproducibility. |
 | Dependencies and deprecations | 15 | requirements.txt; LSTM/numpy imports updated to use `np.newaxis` (no `from numpy import`). |
 
 **Changes delivered:** See `docs/PR-ITERATION1.md`, plus: LSTM deprecation fixes, integrated-strategy README reproducibility note, output-backtester_wrapper error handling.
+
+All items in `docs/IMPROVEMENT_SUGGESTIONS.md` were executed on branch `feature/release-readiness-improvements` (code → `src/`, tests 14, CI + pip audit, CONTRIBUTING, docstrings, etc.).
 
 ---
 
