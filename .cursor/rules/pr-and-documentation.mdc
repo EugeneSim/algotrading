@@ -1,0 +1,28 @@
+---
+description: All changes as PR with clear explanation and documentation
+alwaysApply: true
+---
+
+# PR and Documentation Standard
+
+All code or config changes in this repo must be delivered as a **Pull Request** with clear explanation and documentation.
+
+## Pull Request Requirements
+
+- **Title**: Short, imperative (e.g. "Fix look-ahead in backtest signal alignment", "Upgrade pandas calls to non-deprecated API").
+- **Description**:
+  - What changed (files and high-level behavior).
+  - Why (bug, robustness, security, deprecation, or feature).
+  - How it affects backtesting, paper trading, or other workflows if relevant.
+- **Scope**: One logical change per PR when possible; group related edits (e.g. one “Deprecation fixes in backtest stack”) if they belong together.
+
+## Documentation Updates
+
+- **Code**: Update docstrings for new or modified public functions/classes (purpose, args, returns, notable side effects).
+- **Project**: Update `README.md` or `docs/` when:
+  - Dependencies or setup steps change.
+  - New scripts or entrypoints are added.
+  - Backtest or run instructions change.
+- **Changelog**: For larger releases, consider a short changelog (e.g. in README or `docs/`) listing notable fixes and upgrades.
+
+When suggesting or applying changes, always provide the PR-style title and description and note any doc files to update.

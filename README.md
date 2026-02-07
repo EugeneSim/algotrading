@@ -19,6 +19,9 @@
 * [About this repo](#-about-this-repo)
 * [How to use](#-how-to-use)
 * [Code overview](#-code-overview)
+* [Requirements](#-requirements)
+* [Testing](#-testing)
+* [Data and environment](#-data-and-environment)
 * [Development](#-development)
 * [Contact](#-contact)
 * [Acknowledgements](#-acknowledgements)
@@ -30,7 +33,7 @@ This repo is built as part of the Final Year Project (FYP) at the Department of 
 
 ## 🤔 How to use
 
-All the code could be found in the `/code` directory and the documentation could be accessed at [https://algo-trading.readthedocs.io/](https://algo-trading.readthedocs.io/).
+All the code could be found in the `/src` directory and the documentation could be accessed at [https://algo-trading.readthedocs.io/](https://algo-trading.readthedocs.io/).
 
 (Note that the `/database` directory only contains example files. The actual database is stored in the HKU Department of Computer Science server.)  
 
@@ -87,6 +90,36 @@ All the code could be found in the `/code` directory and the documentation could
 * Trading signal generation with LSTM (multi-feature)
 * Daily trading signal generation with LSTM + trade execution with IB
 
+
+## 📦 Requirements
+
+Install core dependencies for the backtest and evaluation stack:
+
+```bash
+pip install -r requirements.txt
+```
+
+See `requirements.txt` for version ranges. Optional dependencies (e.g. for integrated-strategy or paper-trading) are commented there. Do not commit API keys or secrets; use environment variables or config files that are listed in `.gitignore`.
+
+## 🧪 Testing
+
+Automated tests for the backtest and evaluation modules live in `/tests`. Run them from the repo root:
+
+```bash
+python -m pytest
+```
+
+Or explicitly: `python -m pytest tests/ -v -p no:debugging`. The config in `pytest.ini` disables the debugging plugin to avoid a naming conflict between this repo’s `code/` package and Python’s standard library `code` module. All tests use a non-interactive matplotlib backend.
+
+Optional dependencies (integrated-strategy, paper-trading): `pip install -r requirements-integrated.txt` (installs base requirements plus torch, textblob, vaderSentiment, etc.).
+
+## 📂 Data and environment
+
+- **Data layout:** Price and example data live under `/database`. Some scripts expect a separate `database_real/` (e.g. full HKEX data, macro determinants) for LSTM and filters; that path is in `.gitignore`. Override the data root with the **`DATA_ROOT`** or **`ALGOTRADING_DATA`** environment variable so scripts can find CSVs when run from any working directory.
+- **Paper trading (IB):** Set **`IB_HOST`**, **`IB_PORT`**, and optionally **`IB_CLIENT_ID`** (defaults: `127.0.0.1`, `7497`, `0`) so connection details are not hardcoded.
+- **Secrets:** Do not commit API keys or passwords. Use environment variables or config files that are listed in `.gitignore`.
+
+- **Reproducibility (notebooks):** For reproducible results in Jupyter notebooks, set `np.random.seed(42)` (or another value) in a cell before any random operations and run cells from top to bottom. LSTM training scripts use `torch.manual_seed(1)`; see `src/integrated-strategy/README.md`.
 
 ## 🔧 Development
 
